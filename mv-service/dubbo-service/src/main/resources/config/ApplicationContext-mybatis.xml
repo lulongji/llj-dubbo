@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 创建SqlSessionFactory，同时指定数据源 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource_dubbo" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="typeAliasesPackage" value="com.lu.entity.*" />
+		<property name="mapperLocations" value="classpath*:mybatis/**/*Mapper.xml" />
+		<property name="plugins">
+			<array>
+				<ref bean="pagePlugin" />
+			</array>
+		</property>
+	</bean>
+	<bean class="com.lu.common.mybatis.PageInterceptor" id="pagePlugin" />
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="com.lu.service.dao" p:sqlSessionTemplateBeanName="sqlSessionTemplate" />
+
+	<bean class="com.lu.common.mybatis.dao.BaseDaoImpl">
+		<property name="beans" value="classpath:com/lu/entity/**/*.class" />
+		<property name="sessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+</beans>

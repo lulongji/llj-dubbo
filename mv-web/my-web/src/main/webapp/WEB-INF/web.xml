@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<!-- 1.启动一个WEB项目的时候,容器(如:Tomcat)会去读它的配置文件web.xml.读两个节点: <listener></listener> 
+		和 <context-param></context-param> 2.紧接着,容器创建一个ServletContext(上下文),这个WEB项目所有部分都将共享这个上下文. 
+		3.容器将<context-param></context-param>转化为键值对,并交给ServletContext搜索. 4.容器创建<listener></listener>中的类实例,即创建监听. -->
+	<context-param>
+		<!-- 用来设定web站台的环境参数，它包含两个子元素 -->
+		<param-name>contextConfigLocation</param-name>
+		<!-- 用来指定参数的名称 -->
+		<param-value>classpath:spring/ApplicationContext*.xml,classpath:spring/dubbo-consumer.xml,classpath:spring/ehcache.xml</param-value>
+		<!-- 用来设定参数值 -->
+	</context-param>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:properties/log4j.properties</param-value>
+	</context-param>
+
+	<!-- url过滤开始 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- url过滤结束 -->
+
+	<filter>
+		<!-- 是用来声明filter的相关设定，它包含以下子元素： -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- 这当然就是指定filter的名字 -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 这是用来定义filter的类的名称 -->
+		<init-param><!-- 用来定义参数，它有两个子元素： -->
+			<param-name>encoding</param-name><!-- 用来指定参数的名称 -->
+			<param-value>utf-8</param-value><!-- 用来设定参数值 -->
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<!-- 与<filter></filter>同时使用的是<filter-mapping></filter-mapping> 用来定义filter所对应的URL -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- 指定filter的名字 -->
+		<url-pattern>/*</url-pattern>
+		<!-- 指定filter所对应的URL -->
+	</filter-mapping>
+
+	<!-- 用来设定Listener接口，它的主要子元素为 -->
+	<listener>
+		<!-- 定义Listener的类名称 -->
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 用来声明一个servlet的数据 -->
+	<servlet>
+		<!-- 指定servlet的名称 -->
+		<servlet-name>springMvc</servlet-name>
+		<!-- 指定servlet的类名称 -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 用来定义参数，和前面的<init-param>差不多 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 与<servlet></servlet>一起使用的是<servlet-mapping></servlet-mapping> 用来定义servlet所对应的URL -->
+	<servlet-mapping>
+		<servlet-name>springMvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<error-page>
+		<error-code>404</error-code><!-- 指定错误代码 -->
+		<location>/404.jsp</location><!-- 指定在web站台内的相关资源路径 -->
+	</error-page>
+	<session-config>
+		<session-timeout>600</session-timeout>
+	</session-config>
+</web-app>

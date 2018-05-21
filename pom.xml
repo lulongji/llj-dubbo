@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.lu</groupId>
+	<artifactId>llj-dubbo</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>llj-dubbo</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<common.version>1.0.0</common.version>
+	</properties>
+
+	<dependencies>
+	</dependencies>
+	<modules>
+		<module>mv-web</module>
+		<module>mv-core</module>
+		<module>mv-service</module>
+		<module>mv-entity</module>
+		<module>mv-api</module>
+	</modules>
+	<!-- 修改jdk默认版本 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

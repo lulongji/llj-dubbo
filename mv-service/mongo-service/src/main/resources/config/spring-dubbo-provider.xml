@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	">
+	<!-- <dubbo:monitor protocol="registry" /> -->
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="mongo_provider"/>
+	   
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry id="mongo_dubbo_server" protocol="zookeeper" address="${zk.address}"/>
+	
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+   	<dubbo:protocol name="dubbo" host="${dubbo.server.host}" port="${dubbo.server.port}" />
+	
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lu</groupId>
+		<artifactId>mv-service</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>mongo-service</artifactId>
+	<packaging>jar</packaging>
+	<name>mongo-service Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mongodb.version>1.8.2.RELEASE</mongodb.version>
+		<dubbo.api.version>1.0.0</dubbo.api.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${mongodb.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lu</groupId>
+			<artifactId>dubbo-api</artifactId>
+			<version>${dubbo.api.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>mongo-service</finalName>
+	</build>
+</project>

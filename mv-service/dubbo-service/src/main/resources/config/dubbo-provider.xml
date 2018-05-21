@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	">
+	<!-- 监控 -->
+	<!-- <dubbo:monitor protocol="registry" /> -->
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="dubbo-service-provider" />
+
+	<!-- 使用zookeeper广播注册中心暴露服务地址 -->
+	<dubbo:registry id="lu_dubbo_server" protocol="zookeeper" address="${zk.address}" />
+
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" host="${dubbo.server.host}" port="${dubbo.server.port}" />
+
+	<!-- 官方注释：扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类。 测试发现：此处package不填写包名会无法注册Service，扫描全包需填写包首即可或者填写至类的上一级目录。 -->
+	<dubbo:annotation package="com" />
+
+	<!-- 需要暴露的接口 -->
+	<dubbo:service interface="com.lu.api.user.UserService" group="${dubbo.group}" version="${version}" timeout="${timeout}"  ref="userService" />
+</beans>

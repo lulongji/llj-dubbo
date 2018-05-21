@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lu</groupId>
+		<artifactId>mv-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>mv-service</artifactId>
+	<name>mv-service</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<common.version>1.0.0</common.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.lu</groupId>
+			<artifactId>core-common</artifactId>
+			<version>${common.version}</version>
+		</dependency>
+	</dependencies>
+	<packaging>pom</packaging>
+	<modules>
+		<module>dubbo-service</module>
+		<module>goods-service</module>
+		<module>statistic-service</module>
+    <module>mongo-service</module>
+  </modules>
+</project>
